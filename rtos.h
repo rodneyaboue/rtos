@@ -22,4 +22,6 @@ extern int current_task;
 extern int num_tasks;
 int create_task(void (*func)(void), int priority);
 void scheduler();
+void display_dashboard();
+
 #endif // RTOS_H
