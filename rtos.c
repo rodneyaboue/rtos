@@ -30,6 +30,7 @@ void scheduler() {
             
             tasks[i].task_func();
             tasks[i].state = READY;
+            break;
         }
     }
     display_dashboard();

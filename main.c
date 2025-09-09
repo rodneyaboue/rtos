@@ -29,10 +29,10 @@ void task5() {
 }
 
 int main() {
-    create_task(task1, 1, 1);
-    create_task(task2, 1, 2);
-    create_task(task3, 1, 3);
-    create_task(task4, 1, 4);
+    create_task(task1, 5, 2);
+    create_task(task2, 4, 2);
+    create_task(task3, 3, 3);
+    create_task(task4, 2, 4);
     create_task(task5, 1, 5);
 
     
