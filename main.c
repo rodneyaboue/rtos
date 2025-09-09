@@ -2,6 +2,7 @@
 #include "rtos.h"
 #include <unistd.h>
 
+int tick_count = 0;
 void task1() {
     static int counter = 0;
     printf("Task 1 running %d\n", counter++);
@@ -17,12 +18,24 @@ void task3() {
     printf("Task 3 running %d\n", counter++);
 }
 
-int main() {
-    create_task(task1, 1);
-    create_task(task2, 2);
-    create_task(task3, 3);
+void task4() {
+    static int counter = 0;
+    printf("Task 4 running %d\n", counter++);
+}
 
-    int tick_count = 0;
+void task5() {
+    static int counter = 0;
+    printf("Task 5 running %d\n", counter++);
+}
+
+int main() {
+    create_task(task1, 1, 1);
+    create_task(task2, 1, 2);
+    create_task(task3, 1, 3);
+    create_task(task4, 1, 4);
+    create_task(task5, 1, 5);
+
+    
     while(1) {
         printf("\nTick: %d\n", tick_count);
         scheduler();       

@@ -8,7 +8,7 @@ jmp_buf context[MAX_TASKS];
 task_t tasks[MAX_TASKS];      
 int current_task = 0;         
 int num_tasks = 0;            
-int create_task(void (*func)(void), int priority) {
+int create_task(void (*func)(void), int priority, int frequency) {
     if(num_tasks >= MAX_TASKS) 
     {
         return 1;
@@ -16,6 +16,7 @@ int create_task(void (*func)(void), int priority) {
     tasks[num_tasks].id = num_tasks;
     tasks[num_tasks].priority = priority;
     tasks[num_tasks].state = READY;
+    tasks[num_tasks].frequency = frequency;
     tasks[num_tasks].task_func = func;
     num_tasks++;
     return 0;
@@ -23,13 +24,15 @@ int create_task(void (*func)(void), int priority) {
 
 void scheduler() {
     for(int i=0; i<num_tasks; i++) {
-        if(tasks[i].state == READY) {
+        if(tasks[i].state == READY &&
+            tick_count % tasks[i].frequency == 0) {
             tasks[i].state = RUNNING; 
-            display_dashboard();
+            
             tasks[i].task_func();
             tasks[i].state = READY;
         }
     }
+    display_dashboard();
 }
 
 

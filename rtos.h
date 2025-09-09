@@ -11,16 +11,17 @@ typedef enum { READY, RUNNING, BLOCKED } task_state_t;
 typedef struct {
     int id;
     int priority;
+    int frequency;
     task_state_t state;
     void (*task_func)(void);
     unsigned char stack[STACK_SIZE]; // simulation
 } task_t;
 
 extern task_t tasks[MAX_TASKS];
-extern jmp_buf context[MAX_TASKS];
 extern int current_task;
 extern int num_tasks;
-int create_task(void (*func)(void), int priority);
+extern int tick_count;
+int create_task(void (*func)(void), int priority, int frequency);
 void scheduler();
 void display_dashboard();
 
